@@ -30,10 +30,16 @@ def login(request):
             user = auth.authenticate(username=username, password=request.POST['password'])
             if user is not None:
                 auth.login(request, user)
-                return redirect('signup')
+                return redirect('profile')
             else:
                 return render(request, 'accounts/templates/login.html', {'error': 'Email or Password is incorrect.'})
         except User.DoesNotExist:
-            return render(request, 'accounts/templates/login.html', {'error': 'Email or Password is incorrect.'})
+            return render(request, 'accounts/templates/signup.html', {'error': 'You are need to sign up first !!!'})
     else:
         return render(request, 'accounts/templates/login.html')
+
+
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        return redirect('home')

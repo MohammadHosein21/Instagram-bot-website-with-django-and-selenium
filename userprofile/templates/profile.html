@@ -6,19 +6,19 @@
         <br/>
         <br/>
     {% endif %}
-    <h1>Login</h1>
-    <form method="post" action="{% url 'login' %}">
+    <h1>Profile</h1>
+    <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}
-        Email:
+        Username Instagram:
         <br/>
-        <input type="email" name="email"/>
+        <input type="text" name="username"/>
         <br/>
-        Password:
+        Password Instagram:
         <br/>
         <input type="password" name="password"/>
         <br/>
         <br/>
-        <input class="btn btn-primary" type="submit" value="Login"/>
+        <input class="btn btn-primary" type="submit" value="Enter"/>
     </form>
 {% endblock %}
 
