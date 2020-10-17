@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if error %}
+        <br/>
+        {{ error }}
+        <br/>
+        <br/>
+    {% endif %}
+    {{ name }} Profile
+    <br/>
+    <html>
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+    <table style="width:100%">
+        <tr>
+            <th>Page Username</th>
+            <th>Page Password</th>
+        </tr>
+        <tr>
+            {% for page in pagedetail %}
+                {% for pag in page %}
+                    <td>{{ pag }}</td>
+                {% endfor %}
+                <br/>
+            {% endfor %}
+        </tr>
+    </table>
+    </body>
+    </html>
+    <br/>
+    {{ id }}
+    <br/>
+    <form method="post" action="{% url 'startbot' %}">
+        {% csrf_token %}
+        Tag:
+        <br/>
+        <input type="text" name="tag"/>
+        <br/>
+        Amount of Like:
+        <br/>
+        <input type="text" name="count"/>
+        <br/>
+        <input class="btn btn-primary" type="submit" value="Start"/>
+    </form>
+{% endblock %}
