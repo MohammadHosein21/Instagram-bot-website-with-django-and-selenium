@@ -30,7 +30,7 @@ def login(request):
             user = auth.authenticate(username=username, password=request.POST['password'])
             if user is not None:
                 auth.login(request, user)
-                return redirect('profile')
+                return redirect('profile_detail')
             else:
                 return render(request, 'accounts/templates/login.html', {'error': 'Email or Password is incorrect.'})
         except User.DoesNotExist:

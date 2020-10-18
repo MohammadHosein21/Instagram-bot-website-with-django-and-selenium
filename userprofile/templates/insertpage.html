@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+    <section class="jumbotron text-center bg-white">
     {% if error %}
         <br/>
         {{ error }}
         <br/>
         <br/>
     {% endif %}
-    <h1>Profile</h1>
+    <h1>Insert Page</h1>
     <form method="post" action="{% url 'profile' %}">
         {% csrf_token %}
-        Username Instagram:
         <br/>
-        <input type="text" name="username"/>
+        <input type="text" name="username" placeholder="Instagram Username"/>
         <br/>
-        Password Instagram:
         <br/>
-        <input type="password" name="password"/>
+        <input type="password" name="password" placeholder="Instagram Password"/>
         <br/>
         <br/>
         <input class="btn btn-primary" type="submit" value="Enter"/>
     </form>
+    </section>
 {% endblock %}
 

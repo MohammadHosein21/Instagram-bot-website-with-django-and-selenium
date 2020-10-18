@@ -48,10 +48,10 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
-                {#                <img src="{% static 'logo.jpg' %}" height="30" width="30" class="d-inline-block align-top"/>#}
+                <img src="{% static 'logo.png' %}" height="30" width="30" class="d-inline-block align-top"/>
                 Instagram Bot
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -66,8 +66,8 @@
                             {% csrf_token %}
                             <input type="hidden"/>
                         </form>
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                        <a class="nav-link" href="{% url 'profile_detail' %}">Profile Detail</a>
+                        <a class="nav-link" href="{% url 'profile' %}">Insert Page</a>
+                        <a class="nav-link" href="{% url 'profile_detail' %}">Page Details</a>
                     {% else %}
                         <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -86,7 +86,7 @@
 <footer class="text-muted">
     <div class="container text-center">
         <p>
-            Instagram Bot
+            © Instagram Bot {% now "Y" %}
         </p>
     </div>
 </footer>

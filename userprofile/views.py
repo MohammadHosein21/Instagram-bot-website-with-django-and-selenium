@@ -10,7 +10,7 @@ from Bot import Bot
 # Create your views here.
 
 @login_required
-def profile(request):
+def InsertPage(request):
     if request.method == 'POST':
         if request.POST['username'] and request.POST['password']:
             userprofile = UserProfile()
@@ -20,21 +20,21 @@ def profile(request):
             userprofile.save()
             return redirect('profile_detail')
         else:
-            return render(request, 'profile.html', {'error': 'All fields is required'})
+            return render(request, 'userprofile/templates/insertpage.html', {'error': 'All fields is required'})
     else:
-        return render(request, 'profile.html')
+        return render(request, 'userprofile/templates/insertpage.html')
 
 
 @login_required
-def profiledetail(request):
+def pageDetails(request):
     id = request.user.id
     name = request.user.username
     try:
         userdetail = UserProfile.objects.values_list('usernameIG', 'passwordIG')
         pagedetail = userdetail.filter(pk=id)
-        return render(request, 'profile_detail.html', {'pagedetail': pagedetail, 'id': id, 'name': name})
+        return render(request, 'userprofile/templates/pagedetail.html', {'pagedetail': pagedetail, 'id': id, 'name': name})
     except AttributeError:
-        return render(request, 'profile_detail.html', {'error': 'You dont have any pages!!!', 'id': id, 'name': name})
+        return render(request, 'userprofile/templates/pagedetail.html', {'error': 'You dont have any pages!!!', 'id': id, 'name': name})
 
 
 @login_required
