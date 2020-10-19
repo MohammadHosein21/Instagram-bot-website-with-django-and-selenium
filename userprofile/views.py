@@ -17,6 +17,10 @@ def InsertPage(request):
             userprofile.user = request.user
             userprofile.usernameIG = request.POST['username']
             userprofile.passwordIG = request.POST['password']
+            bot = Bot()
+            bot.login()
+            bot.enterUsernamePassword(username_input=request.POST['username'], password_input=request.POST['password'])
+            userprofile.followers = bot.getFollowersNumber(page_id=request.POST['username'])
             userprofile.save()
             return redirect('profile_detail')
         else:
@@ -30,11 +34,24 @@ def pageDetails(request):
     id = request.user.id
     name = request.user.username
     try:
-        userdetail = UserProfile.objects.values_list('usernameIG', 'passwordIG')
+        userdetail = UserProfile.objects.values_list('usernameIG', 'passwordIG','followers')
         pagedetail = userdetail.filter(pk=id)
-        return render(request, 'userprofile/templates/pagedetail.html', {'pagedetail': pagedetail, 'id': id, 'name': name})
+        # detail_list = []
+        # for detail in pagedetail:
+        #     detail_list = list(detail)
+        # if detail_list == []:
+        #     return render(request, 'userprofile/templates/pagedetail.html',
+        #                   {'error': 'You dont have any pages!!!', 'id': id, 'name': name})
+        # else:
+        #     bot = Bot()
+        #     bot.login()
+        #     bot.enterUsernamePassword(username_input=detail_list[0], password_input=detail_list[1])
+        #     follower = bot.getFollowersNumber(page_id=detail_list[0])
+        return render(request, 'userprofile/templates/pagedetail.html',
+                      {'pagedetail': pagedetail, 'name': name})
     except AttributeError:
-        return render(request, 'userprofile/templates/pagedetail.html', {'error': 'You dont have any pages!!!', 'id': id, 'name': name})
+        return render(request, 'userprofile/templates/pagedetail.html',
+                      {'error': 'You dont have any pages!!!', 'id': id, 'name': name})
 
 
 @login_required

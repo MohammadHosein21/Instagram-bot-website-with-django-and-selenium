@@ -22,12 +22,14 @@
         <tr>
             <th>Page Username</th>
             <th>Page Password</th>
+            <th>Follower</th>
         </tr>
         <tr>
             {% for page in pagedetail %}
                 {% for pag in page %}
                     <td>{{ pag }}</td>
                 {% endfor %}
+{#                <td>{{ follower }}</td>#}
                 <br/>
             {% endfor %}
         </tr>
@@ -48,5 +50,6 @@
     </form>
     <br/>
     <h5>Don't insert a page? <a class="text" href="{% url 'profile' %}">Insert a page</a></h5>
+    <br/>
     </section>
 {% endblock %}

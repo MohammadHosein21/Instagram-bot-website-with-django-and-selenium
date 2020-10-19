@@ -84,7 +84,7 @@ class Bot:
         slfw = BeautifulSoup(page_content.get_attribute('innerHTML'), 'html.parser')
         num_flw = slfw.findAll('span', {'class': 'g47SY'})
         num = num_flw[1].getText()
-        print(num)
+        return num
 
 
 # if __name__ == '__main__':
