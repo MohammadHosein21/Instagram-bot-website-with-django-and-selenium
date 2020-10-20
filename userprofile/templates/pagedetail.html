@@ -1,55 +1,67 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="jumbotron text-center bg-white">
-    {% if error %}
-        <br/>
-        {{ error }}
-        <br/>
-        <br/>
-    {% endif %}
-    <h1>{{ name }} Profile</h1>
-    <html>
-    <head>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-        </style>
-    </head>
-    <body>
-    <table style="width:100%">
-        <tr>
-            <th>Page Username</th>
-            <th>Page Password</th>
-            <th>Follower</th>
-        </tr>
-        <tr>
-            {% for page in pagedetail %}
-                {% for pag in page %}
-                    <td>{{ pag }}</td>
+        {% if error %}
+            <br/>
+            {{ error }}
+            <br/>
+            <br/>
+        {% endif %}
+        <h1>{{ name }} Profile</h1>
+        <html>
+        <head>
+            <style>
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+            </style>
+        </head>
+        <body>
+        <table style="width:100%">
+            <tr>
+                <th>Page Username</th>
+                <th>Page Password</th>
+                <th>Follower</th>
+            </tr>
+            <tr>
+                {% for page in pagedetail %}
+                    {% for pag in page %}
+                        <td>{{ pag }}</td>
+                    {% endfor %}
+                    {#                <td>{{ follower }}</td>#}
+                    <br/>
                 {% endfor %}
-{#                <td>{{ follower }}</td>#}
-                <br/>
-            {% endfor %}
-        </tr>
-    </table>
-    </body>
-    </html>
-    <br/>
-    <form method="post" action="{% url 'startbot' %}">
-        {% csrf_token %}
+            </tr>
+        </table>
+        </body>
+        </html>
         <br/>
-        <input type="text" name="tag" placeholder="Tag" required/>
+        <form method="post" action="{% url 'startbot' %}">
+            {% csrf_token %}
+            <br/>
+            <input type="text" name="tag" placeholder="Tag" required/>
+            <br/>
+            <br/>
+            <input type="text" name="count" placeholder="Amount of Like" required/>
+            <br/>
+            <br/>
+            <input class="btn btn-primary" type="submit" value="Start Like"/>
+        </form>
         <br/>
+        <form method="post" action="{% url 'startbot' %}">
+            {% csrf_token %}
+            <br/>
+            <input type="text" name="tag" placeholder="Tag" required/>
+            <br/>
+            <br/>
+            <input type="text" name="amount" placeholder="Amount of Follow" required/>
+            <br/>
+            <br/>
+            <input class="btn btn-primary" type="submit" value="Start Follow"/>
+        </form>
         <br/>
-        <input type="text" name="count" placeholder="Amount of Like" required/>
+        <h5>Don't insert a page? <a class="text" href="{% url 'profile' %}">Insert a page</a></h5>
         <br/>
-        <br/>
-        <input class="btn btn-primary" type="submit" value="Start"/>
-    </form>
-    <br/>
-    <h5>Don't insert a page? <a class="text" href="{% url 'profile' %}">Insert a page</a></h5>
-    <br/>
     </section>
 {% endblock %}
