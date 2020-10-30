@@ -44,17 +44,6 @@ def pageDetails(request):
     try:
         userdetail = UserProfile.objects.values_list('usernameIG', 'passwordIG', 'followers')
         pagedetail = userdetail.filter(pk=id)
-        # detail_list = []
-        # for detail in pagedetail:
-        #     detail_list = list(detail)
-        # if detail_list == []:
-        #     return render(request, 'userprofile/templates/pagedetail.html',
-        #                   {'error': 'You dont have any pages!!!', 'id': id, 'name': name})
-        # else:
-        #     bot = Bot()
-        #     bot.login()
-        #     bot.enterUsernamePassword(username_input=detail_list[0], password_input=detail_list[1])
-        #     follower = bot.getFollowersNumber(page_id=detail_list[0])
         return render(request, 'userprofile/templates/pagedetail.html',
                       {'pagedetail': pagedetail, 'name': name})
     except AttributeError:
@@ -74,5 +63,5 @@ def startbot(request):
     bot.login()
     bot.enterUsernamePassword(username_input=detail_list[0], password_input=detail_list[1])
     # bot.likePhoto(request.POST['tag'], int(request.POST['count']))
-    bot.followOtherpage(request.POST['tag'],int(request.POST['amount']))
+    bot.followOtherpage(request.POST['tag'])
     return render(request, 'startbot.html', {'u': detail_list})
