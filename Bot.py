@@ -97,7 +97,7 @@ class Bot:
                         actionChain = webdriver.ActionChains(self.driver)
                         sleep(4)
                         actionChain.key_down(Keys.SPACE).perform()
-                        for c in range(15):
+                        for c in range(10):
                             j = 6
                             while (j <= 12):
                                 xpath = "/html/body/div[5]/div/div/div[2]/div/div/div[" + str(j) + "]/div[3]/button"
@@ -120,12 +120,45 @@ class Bot:
                 btn_next.click()
                 sleep(5)
 
+    def postComment(self, tag, comment):
+        tag_url = TAG_URL + tag
+        self.driver.get(tag_url)
+        sleep(7)
+        self.driver.find_element_by_class_name('v1Nh3').click()
+        sleep(7)
+        i = 0
+        while (i < 10):
+            try:
+                btn_comment = WebDriverWait(self.driver, 10).until(
+                    expected_conditions.presence_of_element_located(
+                        (By.XPATH, "/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[2]/button")))
+                btn_comment.click()
+                comment_box = WebDriverWait(self.driver, 10).until(
+                    expected_conditions.presence_of_element_located(
+                        (By.XPATH, "/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea")))
+                comment_box.send_keys(comment)
+                sleep(5)
+                btn_postComment = WebDriverWait(self.driver, 10).until(
+                    expected_conditions.presence_of_element_located(
+                        (By.XPATH, "/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/button")))
+                btn_postComment.click()
+                sleep(5)
+                btn_next = self.driver.find_element_by_class_name("coreSpriteRightPaginationArrow")
+                btn_next.click()
+                sleep(5)
+                i += 1
+            except TimeoutException:
+                btn_next = self.driver.find_element_by_class_name("coreSpriteRightPaginationArrow")
+                btn_next.click()
+                sleep(5)
+
 
 if __name__ == '__main__':
     bot = Bot()
     bot.login()
     bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
-    # bot.likePhoto("fun", 2)
-    # bot.getFollowers("mmdhoseinborumnd")
-    # bot.getFollowersNumber("mmdhoseinborumnd")
-    # bot.followOtherpage('موسیقی')
+    bot.postComment("موسیقی", "ممنون میشم مارو دنبال کنید")
+#     bot.likePhoto()
+#     bot.getFollowers()
+#     bot.getFollowersNumber()
+#     bot.followOtherpage()

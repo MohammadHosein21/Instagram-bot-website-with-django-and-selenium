@@ -62,6 +62,14 @@ def startbot(request):
     bot = Bot()
     bot.login()
     bot.enterUsernamePassword(username_input=detail_list[0], password_input=detail_list[1])
+    # bot.followOtherpage(request.POST['tag'])
+    # bot.postComment(request.POST['tag'], request.POST['comment'])
     # bot.likePhoto(request.POST['tag'], int(request.POST['count']))
-    bot.followOtherpage(request.POST['tag'])
-    return render(request, 'startbot.html', {'u': detail_list})
+    userprofile = UserProfile()
+    userprofile.user = request.user
+    follower = bot.getFollowersNumber(page_id= detail_list[0])
+    userprofile.followers = follower
+    userprofile.usernameIG = detail_list[0]
+    userprofile.passwordIG = detail_list[1]
+    userprofile.save()
+    return render(request, 'startbot.html', {'follower': follower})

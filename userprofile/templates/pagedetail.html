@@ -43,19 +43,13 @@
             <input type="text" name="tag" placeholder="Tag" required/>
             <br/>
             <br/>
+            <input type="text" name="comment" placeholder="Comment" required/>
+            <br/>
+            <br/>
             <input type="text" name="count" placeholder="Amount of Like" required/>
             <br/>
             <br/>
-            <input class="btn btn-primary" type="submit" value="Start Like"/>
-        </form>
-        <br/>
-        <form method="post" action="{% url 'startbot' %}">
-            {% csrf_token %}
-            <br/>
-            <input type="text" name="tag" placeholder="Tag" required/>
-            <br/>
-            <br/>
-            <input class="btn btn-primary" type="submit" value="Start Follow"/>
+            <input class="btn btn-primary" type="submit" value="Start Bot"/>
         </form>
         <br/>
         <h5>Don't insert a page? <a class="text" href="{% url 'profile' %}">Insert a page</a></h5>
