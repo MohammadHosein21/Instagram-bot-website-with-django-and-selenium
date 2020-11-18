@@ -1,3 +1,4 @@
+from instapy import InstaPy
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -97,7 +98,7 @@ class Bot:
                         actionChain = webdriver.ActionChains(self.driver)
                         sleep(4)
                         actionChain.key_down(Keys.SPACE).perform()
-                        for c in range(10):
+                        for c in range(5):
                             j = 6
                             while (j <= 12):
                                 xpath = "/html/body/div[5]/div/div/div[2]/div/div/div[" + str(j) + "]/div[3]/button"
@@ -127,7 +128,7 @@ class Bot:
         self.driver.find_element_by_class_name('v1Nh3').click()
         sleep(7)
         i = 0
-        while (i < 10):
+        while (i < 15):
             try:
                 btn_comment = WebDriverWait(self.driver, 10).until(
                     expected_conditions.presence_of_element_located(
@@ -152,12 +153,38 @@ class Bot:
                 btn_next.click()
                 sleep(5)
 
+    def unfollow(self, page_id):
+        page_url = IG_URL + page_id
+        self.driver.get(page_url)
+        sleep(5)
+        btn_following = self.driver.find_element_by_partial_link_text('following')
+        btn_following.click()
+        sleep(5)
+        WebDriverWait(self.driver, 10).until(lambda d: d.find_element_by_css_selector('div[role="dialog"]'))
+        for i in range(300):
+            self.driver.execute_script('''
+            var fDialog = document.querySelector('div[role="dialog"] .isgrP');
+            fDialog.scrollTop = fDialog.scrollHeight
+            ''')
+        for i in range(10):
+            for i in range(10):
+                self.driver.find_element_by_xpath('//button[text()="Following"]').click()
+                self.driver.find_element_by_xpath('//button[text()="Unfollow"]').click()
+                sleep(5)
+            WebDriverWait(self.driver, 10).until(lambda d: d.find_element_by_css_selector('div[role="dialog"]'))
+            for i in range(5):
+                self.driver.execute_script('''
+                var fDialog = document.querySelector('div[role="dialog"] .isgrP');
+                fDialog.scrollTop = fDialog.scrollHeight
+                ''')
 
 if __name__ == '__main__':
+
     bot = Bot()
     bot.login()
     bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
-    bot.postComment("موسیقی", "ممنون میشم مارو دنبال کنید")
+    bot.unfollow('radiomusighi')
+#     bot.postComment("موسیقی", "ممنون میشم مارو دنبال کنید")
 #     bot.likePhoto()
 #     bot.getFollowers()
 #     bot.getFollowersNumber()

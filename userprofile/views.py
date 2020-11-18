@@ -65,6 +65,7 @@ def startbot(request):
     # bot.followOtherpage(request.POST['tag'])
     # bot.postComment(request.POST['tag'], request.POST['comment'])
     # bot.likePhoto(request.POST['tag'], int(request.POST['count']))
+    bot.unfollow(page_id=detail_list[0])
     userprofile = UserProfile()
     userprofile.user = request.user
     follower = bot.getFollowersNumber(page_id= detail_list[0])
