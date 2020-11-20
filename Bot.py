@@ -8,6 +8,7 @@ from time import sleep
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+import schedule
 
 IG_URL = 'http://instagram.com/'
 TAG_URL = 'http://www.instagram.com/explore/tags/'
@@ -98,7 +99,7 @@ class Bot:
                         actionChain = webdriver.ActionChains(self.driver)
                         sleep(4)
                         actionChain.key_down(Keys.SPACE).perform()
-                        for c in range(5):
+                        for c in range(6):
                             j = 6
                             while (j <= 12):
                                 xpath = "/html/body/div[5]/div/div/div[2]/div/div/div[" + str(j) + "]/div[3]/button"
@@ -178,14 +179,31 @@ class Bot:
                 fDialog.scrollTop = fDialog.scrollHeight
                 ''')
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     bot = Bot()
     bot.login()
     bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
-    bot.unfollow('radiomusighi')
+
+
+    def task():
+        bot.unfollow('radiomusighi')
+        bot.likePhoto("", 1)
+        bot.postComment("", "")
+        bot.getFollowersNumber(page_id="page")
+        bot.followOtherpage("")
+
+
+    schedule.every(10).seconds.do(task)
+    while True:
+        schedule.run_pending()
+        sleep(1)
+
+    # bot.login()
+    # bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
+    # bot.unfollow('radiomusighi')
 #     bot.postComment("موسیقی", "ممنون میشم مارو دنبال کنید")
 #     bot.likePhoto()
 #     bot.getFollowers()
 #     bot.getFollowersNumber()
-#     bot.followOtherpage()
+#     bot.followOtherpage("")
