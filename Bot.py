@@ -66,8 +66,15 @@ class Bot:
             expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "#react-root > section > main")))
         slfw = BeautifulSoup(page_content.get_attribute('innerHTML'), 'html.parser')
         num_flw = slfw.findAll('span', {'class': 'g47SY'})
-        num = num_flw[1].getText()
-        return num
+        num = num_flw[1].getText().replace(',', '')
+        if 'k' in num:
+            num = float(num[:-1]) * 1000
+            return num
+        elif 'm' in num:
+            num = float(num[:-1]) * 1000000
+            return num
+        else:
+            return float(num)
 
     def followOtherpage(self, tag):
         tag_url = TAG_URL + tag
@@ -184,20 +191,20 @@ if __name__ == '__main__':
     bot = Bot()
     bot.login()
     bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
+    print(bot.getFollowersNumber("radiomusighi"))
 
-
-    def task():
-        bot.unfollow('radiomusighi')
-        bot.likePhoto("", 1)
-        bot.postComment("", "")
-        bot.getFollowersNumber(page_id="page")
-        bot.followOtherpage("")
-
-
-    schedule.every(10).seconds.do(task)
-    while True:
-        schedule.run_pending()
-        sleep(1)
+    # def task():
+    #     bot.unfollow('radiomusighi')
+    #     bot.likePhoto("", 1)
+    #     bot.postComment("", "")
+    #     bot.getFollowersNumber(page_id="page")
+    #     bot.followOtherpage("")
+    #
+    #
+    # schedule.every(10).seconds.do(task)
+    # while True:
+    #     schedule.run_pending()
+    #     sleep(1)
 
     # bot.login()
     # bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
