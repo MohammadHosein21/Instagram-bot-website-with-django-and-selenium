@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
     'userprofile.apps.UserprofileConfig',
+    'chartjs',
 ]
 
 MIDDLEWARE = [

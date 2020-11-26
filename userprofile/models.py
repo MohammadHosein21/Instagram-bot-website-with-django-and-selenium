@@ -19,5 +19,6 @@ class Data(models.Model):
     follower = ArrayField(models.IntegerField(), size=30, null=True)
     date = ArrayField(models.DateField(), size=30, null=True)
 
+
     def __str__(self):
         return str(self.user)

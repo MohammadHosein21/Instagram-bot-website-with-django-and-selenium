@@ -29,11 +29,10 @@
                     {% for pag in page %}
                         <td>{{ pag }}</td>
                     {% endfor %}
-                    {#                <td>{{ follower }}</td>#}
                     <br/>
                 {% endfor %}
         </table>
-        {{ follwer }}
+        {{ date }}
         </body>
         </html>
         <br/>
@@ -53,6 +52,44 @@
         </form>
         <br/>
         <h5>Don't insert a page? <a class="text" href="{% url 'profile' %}">Insert a page</a></h5>
-        <br/>
     </section>
+    <canvas id="myChart" width="100" height="30"></canvas>
+    <script>
+        labels = []
+        {% for i in date %}
+            labels.push('{{ i }}')
+        {% endfor %}
+        data ={{ follower }}
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'My followers',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'World population per region (in millions)'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 {% endblock %}
