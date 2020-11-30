@@ -192,25 +192,3 @@ if __name__ == '__main__':
     bot.login()
     bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
     print(bot.getFollowersNumber("radiomusighi"))
-
-    # def task():
-    #     bot.unfollow('radiomusighi')
-    #     bot.likePhoto("", 1)
-    #     bot.postComment("", "")
-    #     bot.getFollowersNumber(page_id="page")
-    #     bot.followOtherpage("")
-    #
-    #
-    # schedule.every(10).seconds.do(task)
-    # while True:
-    #     schedule.run_pending()
-    #     sleep(1)
-
-    # bot.login()
-    # bot.enterUsernamePassword(username_input='radiomusighi', password_input='Hosein_77')
-    # bot.unfollow('radiomusighi')
-#     bot.postComment("موسیقی", "ممنون میشم مارو دنبال کنید")
-#     bot.likePhoto()
-#     bot.getFollowers()
-#     bot.getFollowersNumber()
-#     bot.followOtherpage("")
